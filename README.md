@@ -36,3 +36,27 @@ Você pode rodar toda a aplicação diretamente pelo **VS Code** ou terminal.
 ```bash
 git clone [https://github.com/victormaximinodesouza/Painel_Intelig-ncia_Mercado.git](https://github.com/victormaximinodesouza/Painel_Intelig-ncia_Mercado.git)
 cd Painel_Intelig-ncia_Mercado
+
+## 🏗️ Arquitetura e Fluxo de Dados
+
+```text
+       ┌───────────────────────────────┐
+       │     API Pública do IBGE       │
+       └──────────────┬────────────────┘
+                      │ GET (Data Pipeline no App Startup)
+                      ▼
+       ┌───────────────────────────────┐
+       │   Spring Boot Backend (8080)  │
+       │   ├── IbgeService             │
+       │   ├── MarketPotentialEngine   │
+       │   └── H2 Database (In-Memory) │
+       └──────────────┬────────────────┘
+                      │ REST API / JSON (CORS Enabled)
+                      ▼
+       ┌───────────────────────────────┐
+       │     React + Vite Frontend     │
+       │   ├── Axios Service           │
+       │   ├── Interactive Charts      │
+       │   └── State/UF Filter Engine  │
+       └───────────────────────────────┘ 
+       
